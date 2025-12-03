@@ -376,3 +376,8 @@ This function restores all organs.
 		damage *= abs(from.z - dest.z)
 
 	return damage
+
+// After applying damage
+    if(health <= 0)
+        die(source)
+        return

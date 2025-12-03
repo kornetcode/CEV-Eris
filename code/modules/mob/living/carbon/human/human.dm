@@ -517,7 +517,7 @@ var/list/rank_prefix = list(\
 				return
 
 			var/datum/report_field/array/recordnote = E.get_linkage_secNotes()
-			
+
 			if(recordnote)
 				recordnote.add_value(t1)
 
@@ -532,7 +532,7 @@ var/list/rank_prefix = list(\
 				perpname = src.name
 
 			var/datum/computer_file/report/crew_record/E = get_crewmember_record(perpname)
-			if(E)	
+			if(E)
 				var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", E.get_status()) in GLOB.physical_statuses
 
 				if(hasHUD(usr,"medical"))
@@ -562,7 +562,7 @@ var/list/rank_prefix = list(\
 				perpname = src.name
 				var/datum/computer_file/report/crew_record/E = get_crewmember_record(perpname)
 				var/datum/report_field/arrayclump/M = E.get_linkage_medRecord()
-				if(E)	
+				if(E)
 					to_chat(usr, "<b>Name:</b> [E.get_name()]	<b>Blood Type:</b> [E.get_bloodtype()]")
 					to_chat(usr, "<b>DNA:</b> [E.get_dna()]")
 					to_chat(usr, "<b>Prosthetics:</b> [M.value["prosthetics"]]")
@@ -1475,3 +1475,16 @@ var/list/rank_prefix = list(\
 		HUD.update_icon()
 	update_block_overlay()
 	return
+
+/obj/mob/living/carbon/human/proc/die(var/atom/source)
+
+    // Play a death sound for all nearby humans
+    sound("sound/effects/death.ogg") // Replace with your chosen .ogg file
+
+    // Optional debug
+    world << "DEBUG: Human " + src.name + " has died."
+
+    // Handle other death effects
+    // Spawn a corpse, blood, etc. if needed
+    if(!src.deleted) // check if mob hasn’t been deleted yet
+        qdel(src)
